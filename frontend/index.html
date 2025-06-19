@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Legal Compliance Checker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    h1 { color: #333; }
+    form { max-width: 500px; }
+    label { display: block; margin: 1rem 0 0.5rem; }
+    input, select, button { width: 100%; padding: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Legal Compliance Checker</h1>
+  <form id="complianceForm">
+    <label for="industry">Industry:</label>
+    <input type="text" id="industry" name="industry" required />
+
+    <label for="location">Business Location (Country):</label>
+    <input type="text" id="location" name="location" required />
+
+    <label for="size">Number of Employees:</label>
+    <input type="number" id="size" name="size" required />
+
+    <label for="data">Do you collect personal data?</label>
+    <select id="data" name="data" required>
+      <option value="">Select...</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <button type="submit">Check Compliance</button>
+  </form>
+
+  <div id="report" style="margin-top:2rem;"></div>
+
+  <script>
+    const form = document.getElementById('complianceForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const industry = document.getElementById('industry').value;
+      const location = document.getElementById('location').value;
+      const size = document.getElementById('size').value;
+      const data = document.getElementById('data').value;
+
+      // For now, do a simple local check
+      let report = "<h2>Compliance Report</h2>";
+      if (location.toLowerCase() === "eu" && data === "yes") {
+        report += "<p>✅ You need to comply with GDPR.</p>";
+      } else if (location.toLowerCase() === "us" && data === "yes") {
+        report += "<p>✅ You should comply with CCPA or other state privacy laws.</p>";
+      } else {
+        report += "<p>✅ No major data privacy regulations detected based on your input.</p>";
+      }
+
+      if (parseInt(size) > 5) {
+        report += "<p>⚠️ Make sure to follow local labor laws for businesses with more than 5 employees.</p>";
+      }
+
+      document.getElementById('report').innerHTML = report;
+    });
+  </script>
+</body>
+</html>
