@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Legal Compliance Checker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    h1 { color: #333; }
+    form { max-width: 500px; }
+    label { display: block; margin: 1rem 0 0.5rem; }
+    input, select, button { width: 100%; padding: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Legal Compliance Checker</h1>
+  <form id="complianceForm">
+    <label for="industry">Industry:</label>
+    <input type="text" id="industry" name="industry" required />
+
+    <label for="location">Business Location (Country):</label>
+    <input type="text" id="location" name="location" required />
+
+    <label for="size">Number of Employees:</label>
+    <input type="number" id="size" name="size" required />
+
+    <label for="data">Do you collect personal data?</label>
+    <select id="data" name="data" required>
+      <option value="">Select...</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <button type="submit">Check Compliance</button>
+  </form>
+
+  <div id="report" style="margin-top:2rem;"></div>
+  <script>
+  const form = document.getElementById('complianceForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const payload = {
+      industry: document.getElementById('industry').value,
+      location: document.getElementById('location').value,
+      size: document.getElementById('size').value,
+      data: document.getElementById('data').value
+    };
+
+    fetch('https://legal-compliance-checker.onrender.com/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+      const reportDiv = document.getElementById('report');
+      reportDiv.innerHTML = "<h2>Compliance Report</h2>";
+      data.report.forEach(item => {
+        reportDiv.innerHTML += `<p>${item}</p>`;
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('report').innerHTML = "<p style='color:red;'>Error: Could not connect to server.</p>";
+    });
+  });
+</script>
+</body>
+</html>
