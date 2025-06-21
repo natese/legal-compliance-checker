@@ -1,1 +1,4 @@
-# legal-compliance-checker
+# legal-compliance-checker: https://natese.github.io/legal-compliance-checker/
+This prototype project is a Legal Compliance Checker. It's a web-based tool designed to help startups and small businesses identify potential legal risks and better adhere to relevant laws and regulations. My idea behind this was that by answering a short questionnaire, businesses can quickly generate a simple compliance report that highlights important obligations, such as data privacy rules or employment laws, based on their industry, location, size, and business activities.
+The prototype demonstrates how small companies, which often lack in-house legal teams, can use an automated, accessible tool to understand what regulations apply to them and receive actionable recommendations. This early warning system can help prevent costly fines, lawsuits, and reputational harm by flagging areas that need legal attention or updates when laws change.
+
